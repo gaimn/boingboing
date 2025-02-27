@@ -7,7 +7,8 @@ let bounce_time = 0; let bouncer = false; let total_bounces = 0
 let clicks = 0
 
 function move() {
-    x += xv + clicks / 100; y += yv + clicks / 100
+    var txv = xv + clicks / 100; var tyv = yv + clicks / 100
+    x += txv; y += tyv
 
     var xa = x > innerWidth - 200; var xb = x < 0
     var ya = y > innerHeight - 200; var yb = y < 0
@@ -33,6 +34,8 @@ function move() {
         setTimeout(() => {
             document.getElementById("why").hidden = true
         }, 3000)
+    } else if (bounce_time < 3 && bouncer > 1) {
+        xv += txv * 2; yv += tyv * 2
     }
     //bounces = bounces >= 0.5 ? bounces - 0.5 : bounces
     bounce_time++; bouncer = bouncer > 0 ? bouncer - 0.5 : bouncer
