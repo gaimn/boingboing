@@ -23,7 +23,7 @@ function move() {
     if (bounces > 10) {
         x = 0; y = 0; xv = 12; yv = 12; bounces = 0
     }
-    bounces -= 0.5
+    bounces = bounces >= 0.5 ? bounces - 0.5; bounces
 }
 
 setInterval(move, 1e3 / fps)
