@@ -40,7 +40,7 @@ function move() {
 
 function increment() {
     clicks++
-    document.getElementById("click_count").innerHTML = clicks
+    document.getElementById("click_count").innerHTML = clicks + " Click(s)"
 }
 
 setInterval(move, 1e3 / fps)
