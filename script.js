@@ -4,9 +4,10 @@ let fps = 60
 let x = 0; let y = 0
 let xv = 12; let yv = 12
 let bounce_time = 0; let bouncer = false; let total_bounces = 0
+let clicks = 0
 
 function move() {
-    x += xv; y += yv
+    x += xv + clicks / 100; y += yv + clicks / 100
 
     var xa = x > innerWidth - 200; var xb = x < 0
     var ya = y > innerHeight - 200; var yb = y < 0
@@ -35,6 +36,11 @@ function move() {
     }
     //bounces = bounces >= 0.5 ? bounces - 0.5 : bounces
     bounce_time++; bouncer = bouncer > 0 ? bouncer - 0.5 : bouncer
+}
+
+function increment() {
+    clicks++
+    document.getElementById("click_count").innerHTML = clicks
 }
 
 setInterval(move, 1e3 / fps)
