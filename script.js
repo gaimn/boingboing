@@ -1,3 +1,5 @@
+console.log("Hi")
+
 let fps = 60
 let x = 0; let y = 0
 let xv = 12; let yv = 12
@@ -23,7 +25,7 @@ function move() {
     if (bounces > 10) {
         x = 0; y = 0; xv = 12; yv = 12; bounces = 0
     }
-    bounces = bounces >= 0.5 ? bounces - 0.5; bounces
+    bounces = bounces >= 0.5 ? bounces - 0.5 : bounces
 }
 
 setInterval(move, 1e3 / fps)
