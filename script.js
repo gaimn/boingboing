@@ -3,7 +3,7 @@ console.log("Hi")
 let fps = 60
 let x = 0; let y = 0
 let xv = 12; let yv = 12
-let bounces = 0
+let bounces = 0; let total_bounces = 0
 
 function move() {
     x += xv; y += yv
@@ -12,10 +12,12 @@ function move() {
     var ya = y > innerHeight - 200; var yb = y < 0
 
     if (xa || xb) {
-        xv *= -1; bounces++
+        xv *= -1; bounces++; total_bounces++
+        document.getElementById("count").innerHTML = total_bounces + " Boing(s)"
     }
     if (ya || yb) {
-        yv *= -1; bounces++
+        yv *= -1; bounces++; total_bounces++
+        document.getElementById("count").innerHTML = total_bounces + " Boing(s)"
     }
 
     // a variable wouldn't work for whatever damn reason
