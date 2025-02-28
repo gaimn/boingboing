@@ -1,51 +1,71 @@
 console.log("Hi")
 
 let fps = 60
-let x = 0; let y = 0
-let xv = 12; let yv = 12
-let bounce_time = 0; let bouncer = false; let total_bounces = 0
+let bouncers = 0
 let clicks = 0
+let x = []; let y = []
+let xv = []; let yv = []
+let bounce_time = []
+let bouncer = []
+let total_bounces = 0
+let elements = []
 
-function move() {
-    var txv = xv + clicks / 100; var tyv = yv + clicks / 100
-    x += txv; y += tyv
+class Bouncer {
+    constructor() {
+        var id = bouncers
+        document.body.innerHTML += "<button id='"+id+"' style='position:absolute;font-size:3em;width:200px;height:200px' onclick='increment()'>boing boing</button>"
+        elements.push(document.getElementById(id))
 
-    var xa = x > innerWidth - 200; var xb = x < 0
-    var ya = y > innerHeight - 200; var yb = y < 0
+        x.push(0); y.push(0); xv.push(12); yv.push(12); bounce_time.push(0); bouncer.push(false);
+
+        bouncers++
+        setInterval(move, 1e3/fps, id)
+    }
+}
+
+function move(id) {
+    var txv = xv[id] + clicks / 100; var tyv = yv[id] + clicks / 100
+    x[id] += txv; y[id] += tyv
+
+    var xa = x[id] > innerWidth - 200; var xb = x[id] < 0
+    var ya = y[id] > innerHeight - 200; var yb = y[id] < 0
 
     if (xa || xb) {
-        xv *= -1; bounce_time = 0; bouncer++; total_bounces++
+        xv[id] *= -1; bounce_time[id] = 0; bouncer[id]++; total_bounces++
         document.getElementById("count").innerHTML = total_bounces + " Boing(s)"
     }
     if (ya || yb) {
-        yv *= -1; bounce_time = 0; bouncer++; total_bounces++
+        yv[id] *= -1; bounce_time[id] = 0; bouncer[id]++; total_bounces++
         document.getElementById("count").innerHTML = total_bounces + " Boing(s)"
     }
 
     // a variable wouldn't work for whatever damn reason
-    document.getElementById("boing").style.left = x + "px"
-    document.getElementById("boing").style.top = y + "px"
+    document.getElementById(id).style.left = x[id] + "px"
+    document.getElementById(id).style.top = y[id] + "px"
 
-    if (bounce_time < 3 && bouncer > 2) {
-        x = 0; y = 0; xv = 12; yv = 12; bounce_time = 0; bouncer = 0
+    if (bounce_time[id] < 3 && bouncer[id] > 2) {
+        x[id] = 0; y[id] = 0; xv[id] = 12; yv[id] = 12; bounce_time[id] = 0; bouncer[id] = 0
         total_bounces -= 4
         document.getElementById("count").innerHTML = total_bounces + " Boing(s)"
         document.getElementById("why").hidden = false
         setTimeout(() => {
             document.getElementById("why").hidden = true
         }, 3000)
-    } else if (bounce_time < 3 && bouncer > 1) {
-        xv += txv * 2; yv += tyv * 2
-    }
-    //bounces = bounces >= 0.5 ? bounces - 0.5 : bounces
-    bounce_time++; bouncer = bouncer > 0 ? bouncer - 0.5 : bouncer
+    }// else if (bounce_time[id] < 3 && bouncer[id] > 1) {
+    //    xv[id] += txv * 2; yv[id] += tyv * 2
+    //}
+    // bounces = bounces >= 0.5 ? bounces - 0.5 : bounces
+    bounce_time[id]++; bouncer[id] = bouncer[id] > 0 ? bouncer[id] - 0.5 : bouncer[id]
 }
+
 
 function increment() {
     clicks++
     document.getElementById("click_count").innerHTML = clicks + " Click(s)"
 }
 
-setInterval(move, 1e3 / fps)
+// setInterval(move, 1e3 / fps)
+
+new Bouncer // Spawn in!
 // UPDATE WEB
 // 42
