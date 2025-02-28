@@ -45,7 +45,7 @@ function move(id) {
         yv[id] *= -1; bounce_time[id] = 0; bouncer[id]++; total_bounces++
         document.getElementById("count").innerHTML = total_bounces + " Boing(s)"
         if (Math.random() > 0.95) {
-            new Bouncer(x[id], y[id], -xv[id], yv[id], bounce_time[id], bouncer[id])
+            new Bouncer(x[id], y[id], xv[id], -yv[id], bounce_time[id], bouncer[id])
         }
     }
 
